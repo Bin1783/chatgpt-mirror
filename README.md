@@ -5,6 +5,7 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Go Version](https://img.shields.io/badge/go-%3E%3D1.19-blue.svg)
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-☕-FFDD00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/chatgptmirror)
 
 ## ✨ 核心特性
 
@@ -181,61 +182,6 @@ docker-compose up -d
 - 用户与主账号的灵活关联
 - 访问频率和功能限制
 
-## 📊 项目结构
-
-```
-chatgpt-mirror/
-├── admin/                 # 管理后台模块
-│   ├── controller/        # 控制器层
-│   ├── service/          # 业务逻辑层
-│   └── protocol/         # 数据传输对象
-├── api/                  # API 接口模块
-├── cmd/                  # 应用入口
-├── conf/                 # 配置文件
-├── internal/             # 内部模块
-│   ├── controller/       # 用户界面控制器
-│   ├── service/         # 用户业务逻辑
-│   └── protocol/        # 用户数据协议
-├── middleware/           # 中间件
-├── models/              # 数据模型
-├── pkg/                 # 公共包
-├── repo/                # 数据访问层
-├── view/                # 前端模板
-└── routers/             # 路由配置
-```
-
-## 🤝 贡献指南
-
-我们欢迎任何形式的贡献！
-
-1. Fork 本项目
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 创建 Pull Request
-
-### 开发规范
-- 遵循 Go 代码规范
-- 添加适当的注释和文档
-- 编写单元测试
-- 确保代码通过 lint 检查
-
-## 📝 更新日志
-
-### v1.0.0 (Latest)
-- ✅ 基础的 ChatGPT 代理功能
-- ✅ 用户账号隔离系统
-- ✅ 管理后台界面
-- ✅ 主账号管理功能
-- ✅ 用户管理功能
-- ✅ Token 自动管理
-
-### 计划中的功能
-- [ ] 多语言支持
-- [ ] API 接口文档
-- [ ] 监控面板
-- [ ] 批量用户导入
-- [ ] 使用统计报表
 
 ## ⚠️ 重要声明
 
@@ -248,6 +194,33 @@ chatgpt-mirror/
 ## 📄 许可证
 
 本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
+
+## ☕ 支持我们
+
+如果这个项目对你有帮助，可以请我们喝杯咖啡 ☕
+
+### 赞助方式
+
+<a href="https://www.buymeacoffee.com/chatgptmirror" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" >
+</a>
+
+**微信赞助**
+
+<img src="https://via.placeholder.com/200x200/00C853/FFFFFF?text=微信收款码" alt="微信赞助" width="200">
+
+**支付宝赞助**
+
+<img src="https://via.placeholder.com/200x200/1976D2/FFFFFF?text=支付宝收款码" alt="支付宝赞助" width="200">
+
+### 其他支持方式
+
+- ⭐ 给项目点个 Star
+- 🔄 分享给更多需要的人
+- 🐛 报告 Bug 和提出改进建议
+- 💻 贡献代码和文档
+
+每一份支持都是我们持续改进的动力！🚀
 
 ## 🆘 支持与反馈
 
