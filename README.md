@@ -1,10 +1,11 @@
 # ChatGPT Mirror 🚀
 
-一个功能强大的 ChatGPT 代理服务，为团队和个人提供无障碍的 ChatGPT 访问体验。
+一个简单的使用go实现的 ChatGPT 代理服务，为团队和个人提供无障碍的 ChatGPT 访问体验。
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Go Version](https://img.shields.io/badge/go-%3E%3D1.19-blue.svg)
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
+[![Telegram](https://img.shields.io/badge/Telegram-@ChatGPTMirror-2CA5E0?style=flat&logo=telegram&logoColor=white)](https://t.me/Bink1783)
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-☕-FFDD00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/chatgptmirror)
 
 ## ✨ 核心特性
@@ -30,6 +31,13 @@
 - **关联管理**：灵活配置用户与主账号的关联关系
 - **实时监控**：账号状态监控，异常告警
 
+### 📦 套餐配置管理
+- **主账号套餐配置**：为每个主账号设置不同的使用套餐
+- **会话次数限制**：灵活配置时间段内的对话次数上限
+- **时间窗口控制**：支持按小时、天、周、月等维度进行限制
+- **自动重置机制**：到期自动重置使用次数，无需手动干预
+- **多级限制策略**：支持全局限制、账号限制、用户限制多层级控制
+
 ## 🏗️ 技术架构
 
 ```
@@ -39,6 +47,7 @@
 │  - React UI     │    │  - Go Backend    │    │  - Official API │
 │  - User Auth    │    │  - Token Mgmt    │    │  - GPT Models   │
 │  - Chat History │    │  - User Isolation│    │  - Plus Features│
+│  - Admin Panel  │    │  - Package Config│    │  - Rate Limiting│
 └─────────────────┘    └──────────────────┘    └─────────────────┘
 ```
 
@@ -51,7 +60,7 @@
 ## 🚀 快速开始
 
 ### 环境要求
-- Go >= 1.19
+- Go >= 1.24
 - MySQL >= 5.7
 - Redis >= 6.0
 
@@ -69,14 +78,13 @@ cd chatgpt-mirror
 **如需部署服务，请通过以下方式联系：**
 - 📧 在 [Issues](https://github.com/your-username/chatgpt-mirror/issues) 中创建部署需求
 - 💬 在 [Discussions](https://github.com/your-username/chatgpt-mirror/discussions) 中讨论
+- 📱 Telegram 联系：[@ChatGPTMirror](https://t.me/Bink1783)
 **演示服务访问：**
 - 用户界面：http://localhost:8082
 - 管理后台：http://localhost:8082/admin
 - 默认管理员账号：`BinRoot` / `BinRoot`
 
 ### Docker 部署
-
-> ℹ️ **说明**：Docker 部署同样需要完整的配置文件和环境设置。如需容器化部署方案，请通过上述方式联系获取。
 
 ```bash
 # 示例命令（需要完整配置）
@@ -137,6 +145,13 @@ docker-compose up -d
 - 用户与主账号的灵活关联
 - 访问频率和功能限制
 
+### 套餐配置系统
+- **时间窗口配置**：支持1小时、1天、1周、1月等多种时间窗口
+- **次数限制设置**：为每个时间窗口设置最大对话次数
+- **超限处理机制**：达到限制后的自动处理和提示
+- **动态调整功能**：管理员可随时调整套餐配置参数
+- **配额分配策略**：支持按用户、按主账号、按时间段等多维度配额分配
+
 
 ## ⚠️ 重要声明
 
@@ -171,15 +186,6 @@ docker-compose up -d
 
 *扫描上方二维码，用微信支付赞助*
 
----
-
-**支付宝赞助**
-
-<img src="./assets/sponsor/alipay-qr.png" alt="支付宝赞助二维码" width="300">
-
-*扫描上方二维码，用支付宝赞助*
-
----
 
 **赞助说明**
 - 💝 任何金额的赞助都是对我们最大的鼓励
@@ -201,7 +207,7 @@ docker-compose up -d
 
 - 🐛 [提交 Bug](https://github.com/your-username/chatgpt-mirror/issues)
 - 💡 [功能建议](https://github.com/your-username/chatgpt-mirror/discussions)
-- 📧 邮件联系：your-email@example.com
+- 📱 Telegram：[@ChatGPTMirror](https://t.me/Bink1783)
 
 ## 🙏 致谢
 
