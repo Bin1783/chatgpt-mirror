@@ -205,13 +205,33 @@ docker-compose up -d
   <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" >
 </a>
 
+<details>
+<summary>💰 <strong>点击展开赞赏码</strong></summary>
+
+<br>
+
 **微信赞助**
 
-<img src="https://via.placeholder.com/200x200/00C853/FFFFFF?text=微信收款码" alt="微信赞助" width="200">
+<img src="./assets/sponsor/wechat-qr.png" alt="微信赞助二维码" width="300">
+
+*扫描上方二维码，用微信支付赞助*
+
+---
 
 **支付宝赞助**
 
-<img src="https://via.placeholder.com/200x200/1976D2/FFFFFF?text=支付宝收款码" alt="支付宝赞助" width="200">
+<img src="./assets/sponsor/alipay-qr.png" alt="支付宝赞助二维码" width="300">
+
+*扫描上方二维码，用支付宝赞助*
+
+---
+
+**赞助说明**
+- 💝 任何金额的赞助都是对我们最大的鼓励
+- 🚀 赞助资金将用于服务器维护和功能开发
+- 🙏 感谢每一位支持者的慷慨赞助
+
+</details>
 
 ### 其他支持方式
 
