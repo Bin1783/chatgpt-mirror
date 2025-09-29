@@ -57,54 +57,30 @@
 
 ### 安装部署
 
+> ⚠️ **重要提示**：由于特殊原因，暂不支持本地源码部署。如有部署需要，请在 [Issues](https://github.com/your-username/chatgpt-mirror/issues) 中留言联系。
+
 1. **克隆项目**
 ```bash
+# 注意：仅用于查看源码结构和学习
 git clone https://github.com/your-username/chatgpt-mirror.git
 cd chatgpt-mirror
 ```
 
-2. **配置环境**
-```bash
-# 复制配置文件
-cp conf/conf_dev.json conf/conf.json
-
-# 修改数据库配置
-vim conf/conf.json
-```
-
-3. **初始化数据库**
-```bash
-# 创建数据库
-mysql -u root -p -e "CREATE DATABASE gpt_mirror CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-
-# 运行迁移脚本（如果有）
-# go run migrate/main.go
-```
-
-4. **编译运行**
-```bash
-# 安装依赖
-go mod tidy
-
-# 编译
-go build -o gpt_mirror ./cmd
-
-# 运行
-./gpt_mirror
-```
-
-5. **访问服务**
+**如需部署服务，请通过以下方式联系：**
+- 📧 在 [Issues](https://github.com/your-username/chatgpt-mirror/issues) 中创建部署需求
+- 💬 在 [Discussions](https://github.com/your-username/chatgpt-mirror/discussions) 中讨论
+**演示服务访问：**
 - 用户界面：http://localhost:8082
 - 管理后台：http://localhost:8082/admin
 - 默认管理员账号：`BinRoot` / `BinRoot`
 
 ### Docker 部署
 
-```bash
-# 构建镜像
-docker build -t chatgpt-mirror .
+> ℹ️ **说明**：Docker 部署同样需要完整的配置文件和环境设置。如需容器化部署方案，请通过上述方式联系获取。
 
-# 运行容器
+```bash
+# 示例命令（需要完整配置）
+docker build -t chatgpt-mirror .
 docker-compose up -d
 ```
 
@@ -136,27 +112,6 @@ docker-compose up -d
 
 ## 🔧 配置说明
 
-### 主要配置项
-
-```json
-{
-  "server": {
-    "host": "0.0.0.0",
-    "port": "8082"
-  },
-  "mysql": {
-    "host": "127.0.0.1",
-    "port": 3306,
-    "database": "gpt_mirror"
-  },
-  "redis": {
-    "host": "127.0.0.1",
-    "port": 6379
-  },
-  "redirect": {
-    "dev": "http://localhost:8082/admin/"
-  }
-}
 ```
 
 ### 环境变量
@@ -212,7 +167,7 @@ docker-compose up -d
 
 **微信赞助**
 
-<img src="./assets/sponsor/wechat-qr.png" alt="微信赞助二维码" width="300">
+<img src="./assets/sponsor/wechat-qr.jpg" alt="微信赞助二维码" width="300">
 
 *扫描上方二维码，用微信支付赞助*
 
