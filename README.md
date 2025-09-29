@@ -1,2 +1,270 @@
-# chatgpt-mirror
-go语言实现的gpt镜像
+# ChatGPT Mirror 🚀
+
+一个功能强大的 ChatGPT 代理服务，为团队和个人提供无障碍的 ChatGPT 访问体验。
+
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Go Version](https://img.shields.io/badge/go-%3E%3D1.19-blue.svg)
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
+
+## ✨ 核心特性
+
+### 🔐 账号级别隔离
+- **聊天记录完全隔离**：每个用户的对话历史独立存储，确保隐私安全
+- **多用户支持**：支持团队多成员同时使用，互不干扰
+- **权限管理**：灵活的用户权限控制和访问管理
+
+### 🌐 无障碍访问
+- **无需翻墙**：用户可直接访问，无需任何网络代理工具
+- **原生体验**：完全复刻 ChatGPT 官方网站界面和功能
+- **稳定连接**：优化的网络连接，确保服务稳定可靠
+
+### 👥 灵活的账号管理
+- **独立账号模式**：为每个团队成员分配独立的 ChatGPT 账号
+- **共享账号模式**：多用户共享同一个 ChatGPT Plus 账号
+- **混合模式**：支持独立账号与共享账号混合使用
+
+### 🎛️ 强大的管理后台
+- **用户管理**：创建、编辑、删除用户，设置用户权限
+- **主账号管理**：添加、管理 ChatGPT Token，监控账号状态
+- **关联管理**：灵活配置用户与主账号的关联关系
+- **实时监控**：账号状态监控，异常告警
+
+## 🏗️ 技术架构
+
+```
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   Web Frontend  │    │   Mirror Server  │    │   ChatGPT API   │
+│                 │◄───┤                  │◄───┤                 │
+│  - React UI     │    │  - Go Backend    │    │  - Official API │
+│  - User Auth    │    │  - Token Mgmt    │    │  - GPT Models   │
+│  - Chat History │    │  - User Isolation│    │  - Plus Features│
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+```
+
+### 技术栈
+- **后端**：Go + Gin + GORM
+- **数据库**：MySQL + Redis
+- **前端**：原生 JavaScript + HTML/CSS
+- **部署**：Docker 支持
+
+## 🚀 快速开始
+
+### 环境要求
+- Go >= 1.19
+- MySQL >= 5.7
+- Redis >= 6.0
+
+### 安装部署
+
+1. **克隆项目**
+```bash
+git clone https://github.com/your-username/chatgpt-mirror.git
+cd chatgpt-mirror
+```
+
+2. **配置环境**
+```bash
+# 复制配置文件
+cp conf/conf_dev.json conf/conf.json
+
+# 修改数据库配置
+vim conf/conf.json
+```
+
+3. **初始化数据库**
+```bash
+# 创建数据库
+mysql -u root -p -e "CREATE DATABASE gpt_mirror CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+
+# 运行迁移脚本（如果有）
+# go run migrate/main.go
+```
+
+4. **编译运行**
+```bash
+# 安装依赖
+go mod tidy
+
+# 编译
+go build -o gpt_mirror ./cmd
+
+# 运行
+./gpt_mirror
+```
+
+5. **访问服务**
+- 用户界面：http://localhost:8082
+- 管理后台：http://localhost:8082/admin
+- 默认管理员账号：`BinRoot` / `BinRoot`
+
+### Docker 部署
+
+```bash
+# 构建镜像
+docker build -t chatgpt-mirror .
+
+# 运行容器
+docker-compose up -d
+```
+
+## 📖 使用指南
+
+### 管理员操作
+
+1. **登录管理后台**
+   - 访问 `/admin`
+   - 使用默认账号 `BinRoot/BinRoot` 登录
+
+2. **添加主账号**
+   - 在"主账号管理"页面添加 ChatGPT Token
+   - 设置账号状态和限制规则
+
+3. **创建用户**
+   - 在"用户管理"页面创建用户
+   - 为用户分配主账号或设置共享模式
+
+### 用户操作
+
+1. **获取访问权限**
+   - 联系管理员创建账号
+   - 获取专属的访问链接
+
+2. **开始对话**
+   - 点击访问链接自动登录
+   - 享受与官网一致的 ChatGPT 体验
+
+## 🔧 配置说明
+
+### 主要配置项
+
+```json
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": "8082"
+  },
+  "mysql": {
+    "host": "127.0.0.1",
+    "port": 3306,
+    "database": "gpt_mirror"
+  },
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379
+  },
+  "redirect": {
+    "dev": "http://localhost:8082/admin/"
+  }
+}
+```
+
+### 环境变量
+
+- `ENV`: 运行环境 (dev/prod)
+- `CONFIG_PATH`: 配置文件路径
+- `LOG_LEVEL`: 日志级别
+
+## 🎯 核心功能详解
+
+### 账号隔离机制
+- 每个用户拥有独立的 `share_token`
+- 基于 token 的会话管理和数据隔离
+- 聊天记录按用户 ID 分别存储
+
+### Token 管理
+- 支持多个 ChatGPT 账号 Token
+- 自动 Token 轮换和负载均衡
+- Token 状态监控和异常处理
+
+### 用户权限系统
+- 基于角色的权限控制
+- 用户与主账号的灵活关联
+- 访问频率和功能限制
+
+## 📊 项目结构
+
+```
+chatgpt-mirror/
+├── admin/                 # 管理后台模块
+│   ├── controller/        # 控制器层
+│   ├── service/          # 业务逻辑层
+│   └── protocol/         # 数据传输对象
+├── api/                  # API 接口模块
+├── cmd/                  # 应用入口
+├── conf/                 # 配置文件
+├── internal/             # 内部模块
+│   ├── controller/       # 用户界面控制器
+│   ├── service/         # 用户业务逻辑
+│   └── protocol/        # 用户数据协议
+├── middleware/           # 中间件
+├── models/              # 数据模型
+├── pkg/                 # 公共包
+├── repo/                # 数据访问层
+├── view/                # 前端模板
+└── routers/             # 路由配置
+```
+
+## 🤝 贡献指南
+
+我们欢迎任何形式的贡献！
+
+1. Fork 本项目
+2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 创建 Pull Request
+
+### 开发规范
+- 遵循 Go 代码规范
+- 添加适当的注释和文档
+- 编写单元测试
+- 确保代码通过 lint 检查
+
+## 📝 更新日志
+
+### v1.0.0 (Latest)
+- ✅ 基础的 ChatGPT 代理功能
+- ✅ 用户账号隔离系统
+- ✅ 管理后台界面
+- ✅ 主账号管理功能
+- ✅ 用户管理功能
+- ✅ Token 自动管理
+
+### 计划中的功能
+- [ ] 多语言支持
+- [ ] API 接口文档
+- [ ] 监控面板
+- [ ] 批量用户导入
+- [ ] 使用统计报表
+
+## ⚠️ 重要声明
+
+本项目仅供学习和研究使用，请遵守相关法律法规和 OpenAI 的使用条款。
+
+- 请确保拥有合法的 ChatGPT 账号和使用权限
+- 不得用于商业用途或违法活动
+- 使用本项目产生的任何后果由使用者承担
+
+## 📄 许可证
+
+本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
+
+## 🆘 支持与反馈
+
+- 🐛 [提交 Bug](https://github.com/your-username/chatgpt-mirror/issues)
+- 💡 [功能建议](https://github.com/your-username/chatgpt-mirror/discussions)
+- 📧 邮件联系：your-email@example.com
+
+## 🙏 致谢
+
+感谢所有为这个项目做出贡献的开发者们！
+
+特别感谢：
+- [OpenAI](https://openai.com) 提供的优秀 AI 服务
+- [Gin](https://github.com/gin-gonic/gin) Web 框架
+- [GORM](https://gorm.io) ORM 库
+- 所有开源社区的贡献者
+
+---
+
+⭐ 如果这个项目对你有帮助，请给我们一个 Star！
