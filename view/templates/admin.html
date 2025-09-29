@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.title}}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 0;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 15px 20px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .nav-tab:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .header p {
+            margin-top: 5px;
+            opacity: 0.9;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f44336 0%, #da190b 100%);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+        }
+
+        .btn-logout {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            color: white !important;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255, 255, 255, 0.3) !important;
+            transform: translateY(-1px);
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .toolbar {
+            padding: 20px;
+            border-bottom: 1px solid #e1e5e9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toolbar h3 {
+            color: #333;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-box select,
+        .search-box input {
+            padding: 8px 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e1e5e9;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #555;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-normal {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-offline {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-error {
+            background-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        .status-limit {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .pagination {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .pagination button {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .pagination button.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+        }
+
+        .close {
+            font-size: 24px;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .token-display {
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 8px;
+            border-radius: 4px;
+            word-break: break-all;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 登录界面 -->
+    <div id="loginContainer" class="login-container">
+        <h2>管理员登录</h2>
+        <div id="loginAlert" class="alert alert-error hidden"></div>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">登录</button>
+        </form>
+    </div>
+
+    <!-- 主界面 -->
+    <div id="mainContainer" class="container hidden">
+        <div class="header">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1>GPT主账号管理后台</h1>
+                    <p>管理和监控GPT主账号状态</p>
+                </div>
+                <div>
+                    <span style="margin-right: 15px; opacity: 0.9;">欢迎，管理员</span>
+                    <button class="btn btn-logout" onclick="logout()">退出登录</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 导航标签页 -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('accounts')">主账号管理</button>
+            <button class="nav-tab" onclick="switchTab('users')">用户管理</button>
+        </div>
+
+        <div class="main-content">
+            <!-- 主账号管理标签页 -->
+            <div id="accountsTab" class="tab-content active">
+                <div class="toolbar">
+                    <h3>主账号列表</h3>
+                    <div class="search-box">
+                        <select id="statusFilter">
+                            <option value="">全部状态</option>
+                            <option value="1">正常</option>
+                            <option value="2">手动下线</option>
+                            <option value="3">异常下线</option>
+                            <option value="4">当日已达上限</option>
+                            <option value="5">周期已达上限</option>
+                            <option value="6">token过期</option>
+                        </select>
+                        <button class="btn" onclick="loadAccountList()">搜索</button>
+                        <button class="btn btn-success" onclick="openCreateModal()">新增账号</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="accountTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Token</th>
+                                <th>Refresh Token</th>
+                                <th>状态</th>
+                                <th>创建时间</th>
+                                <th>更新时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="accountTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination" id="pagination">
+                </div>
+            </div>
+
+            <!-- 用户管理标签页 -->
+            <div id="usersTab" class="tab-content">
+                <div class="toolbar">
+                    <h3>用户列表</h3>
+                    <div class="search-box">
+                        <input type="text" id="userNameFilter" placeholder="用户名搜索">
+                        <input type="number" id="comboIdFilter" placeholder="套餐ID">
+                        <button class="btn" onclick="loadUserList()">搜索</button>
+                        <button class="btn btn-success" onclick="openCreateUserModal()">新增用户</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="userTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>用户名</th>
+                                <th>套餐ID</th>
+                                <th>关联主账号</th>
+                                <th>创建时间</th>
+                                <th>更新时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination" id="userPagination">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 创建/编辑账号模态框 -->
+    <div id="accountModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">新增账号</h3>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="modalAlert" class="alert alert-error hidden"></div>
+            <form id="accountForm">
+                <input type="hidden" id="accountId" name="id">
+                <div class="form-group">
+                    <label for="token">Token *</label>
+                    <textarea id="token" name="token" rows="3"
+                        style="width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 6px;"
+                        required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="refreshToken">Refresh Token</label>
+                    <textarea id="refreshToken" name="refresh_token" rows="3"
+                        style="width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 6px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="status">状态 *</label>
+                    <select id="status" name="status"
+                        style="width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 6px;" required>
+                        <option value="1">正常</option>
+                        <option value="2">手动下线</option>
+                        <option value="3">异常下线</option>
+                        <option value="4">当日已达上限</option>
+                        <option value="5">周期已达上限</option>
+                        <option value="6">token过期</option>
+                    </select>
+                </div>
+                <div style="text-align: right; margin-top: 20px;">
+                    <button type="button" class="btn" onclick="closeModal()">取消</button>
+                    <button type="submit" class="btn btn-success">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 创建/编辑用户模态框 -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="userModalTitle">新增用户</h3>
+                <span class="close" onclick="closeUserModal()">&times;</span>
+            </div>
+            <div id="userModalAlert" class="alert alert-error hidden"></div>
+            <form id="userForm">
+                <input type="hidden" id="userId" name="id">
+                <div class="form-group">
+                    <label for="userName">用户名 *</label>
+                    <input type="text" id="userName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="userPassword">密码 *</label>
+                    <input type="password" id="userPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="userComboId">套餐ID *</label>
+                    <input type="number" id="userComboId" name="combo_id" required>
+                </div>
+                <div class="form-group">
+                    <label for="userMainAccountId">关联主账号</label>
+                    <select id="userMainAccountId" name="main_account_id"
+                        style="width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 6px;">
+                        <option value="0">无关联</option>
+                    </select>
+                </div>
+                <div style="text-align: right; margin-top: 20px;">
+                    <button type="button" class="btn" onclick="closeUserModal()">取消</button>
+                    <button type="submit" class="btn btn-success">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        let pageSize = 10;
+        let isEditMode = false;
+        let currentUserPage = 1;
+        let isUserEditMode = false;
+        let availableMainAccounts = [];
+
+        // 检查登录状态
+        function checkLogin() {
+            const token = localStorage.getItem('admin_token');
+            if (token) {
+                document.getElementById('loginContainer').classList.add('hidden');
+                document.getElementById('mainContainer').classList.remove('hidden');
+                loadAccountList();
+            }
+        }
+
+        // 登录
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            try {
+                const response = await fetch('/admin/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                if (result.code === 0) {
+                    if (result.data.is_redirect) {
+                        window.location.href = result.data.redirect_url;
+                    }else{
+                    localStorage.setItem('admin_token', result.data.token);
+                        document.getElementById('loginContainer').classList.add('hidden');
+                        document.getElementById('mainContainer').classList.remove('hidden');
+                        loadAccountList();
+                    }
+                } else {
+                    showAlert('loginAlert', result.message, 'error');
+                }
+            } catch (error) {
+                showAlert('loginAlert', '登录失败: ' + error.message, 'error');
+            }
+        });
+
+        // 加载账号列表
+        async function loadAccountList(page = 1) {
+            currentPage = page;
+            const status = document.getElementById('statusFilter').value;
+            const params = new URLSearchParams({
+                page: page,
+                page_size: pageSize
+            });
+            if (status) {
+                params.append('status', status);
+            }
+
+            try {
+                const response = await fetch(`/admin/gpt-accounts?${params}`, {
+                    headers: {
+                        'Authorization': localStorage.getItem('admin_token')
+                    }
+                });
+
+                const result = await response.json();
+                if (result.code === 0) {
+                    renderAccountTable(result.data.list);
+                    renderPagination(result.data.total, result.data.page, result.data.size);
+                } else {
+                    alert('加载失败: ' + result.message);
+                }
+            } catch (error) {
+                alert('加载失败: ' + error.message);
+            }
+        }
+
+        // 渲染账号表格
+        function renderAccountTable(accounts) {
+            const tbody = document.getElementById('accountTableBody');
+            tbody.innerHTML = '';
+
+            // 检查accounts是否存在且为数组
+            if (accounts && Array.isArray(accounts) && accounts.length > 0) {
+                accounts.forEach(account => {
+                    const statusClass = getStatusClass(account.status);
+                    const row = `
+                        <tr>
+                            <td>${account.id}</td>
+                            <td><div class="token-display">${account.token}</div></td>
+                            <td><div class="token-display">${account.refresh_token}</div></td>
+                            <td><span class="status ${statusClass}">${account.status_text}</span></td>
+                            <td>${formatDateTime(account.create_time)}</td>
+                            <td>${formatDateTime(account.update_time)}</td>
+                            <td>
+                                <button class="btn btn-warning" onclick="editAccount(${account.id})">编辑</button>
+                                <button class="btn btn-danger" onclick="deleteAccount(${account.id})">删除</button>
+                            </td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
+            } else {
+                // 没有数据时显示提示
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #666;">暂无主账号数据</td></tr>';
+            }
+        }
+
+        // 渲染分页
+        function renderPagination(total, page, size) {
+            const totalPages = Math.ceil(total / size);
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            // 上一页
+            if (page > 1) {
+                pagination.innerHTML += `<button onclick="loadAccountList(${page - 1})">上一页</button>`;
+            }
+
+            // 页码
+            for (let i = Math.max(1, page - 2); i <= Math.min(totalPages, page + 2); i++) {
+                const activeClass = i === page ? 'active' : '';
+                pagination.innerHTML += `<button class="${activeClass}" onclick="loadAccountList(${i})">${i}</button>`;
+            }
+
+            // 下一页
+            if (page < totalPages) {
+                pagination.innerHTML += `<button onclick="loadAccountList(${page + 1})">下一页</button>`;
+            }
+        }
+
+        // 获取状态样式类
+        function getStatusClass(status) {
+            switch (status) {
+                case 1: return 'status-normal';
+                case 2:
+                case 3: return 'status-offline';
+                case 4:
+                case 5:
+                case 6: return 'status-limit';
+                default: return 'status-error';
+            }
+        }
+
+        // 格式化日期时间
+        function formatDateTime(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleString('zh-CN');
+        }
+
+        // 打开创建模态框
+        function openCreateModal() {
+            isEditMode = false;
+            document.getElementById('modalTitle').textContent = '新增账号';
+            document.getElementById('accountForm').reset();
+            document.getElementById('accountId').value = '';
+            document.getElementById('accountModal').style.display = 'block';
+        }
+
+        // 编辑账号
+        async function editAccount(id) {
+            isEditMode = true;
+            document.getElementById('modalTitle').textContent = '编辑账号';
+
+            try {
+                const response = await fetch(`/admin/gpt-accounts/${id}`, {
+                    headers: {
+                        'Authorization': localStorage.getItem('admin_token')
+                    }
+                });
+
+                const result = await response.json();
+                if (result.code === 0) {
+                    const account = result.data;
+                    document.getElementById('accountId').value = account.id;
+                    document.getElementById('token').value = account.token;
+                    document.getElementById('refreshToken').value = account.refresh_token;
+                    document.getElementById('status').value = account.status;
+                    document.getElementById('accountModal').style.display = 'block';
+                } else {
+                    alert('加载账号信息失败: ' + result.message);
+                }
+            } catch (error) {
+                alert('加载账号信息失败: ' + error.message);
+            }
+        }
+
+        // 删除账号
+        async function deleteAccount(id) {
+            if (!confirm('确定要删除这个账号吗？')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/admin/gpt-accounts/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': localStorage.getItem('admin_token')
+                    }
+                });
+
+                const result = await response.json();
+                if (result.code === 0) {
+                    alert('删除成功');
+                    loadAccountList(currentPage);
+                } else {
+                    alert('删除失败: ' + result.message);
+                }
+            } catch (error) {
+                alert('删除失败: ' + error.message);
+            }
+        }
+
+        // 关闭模态框
+        function closeModal() {
+            document.getElementById('accountModal').style.display = 'none';
+            hideAlert('modalAlert');
+        }
+
+        // 账号表单提交
+        document.getElementById('accountForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            // 转换数据类型
+            data.status = parseInt(data.status);
+            if (data.id) {
+                data.id = parseInt(data.id);
+            }
+
+            const url = isEditMode ? `/admin/gpt-accounts` : `/admin/gpt-accounts`;
+            const method = isEditMode ? 'PUT' : 'POST';
+
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': localStorage.getItem('admin_token')
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                if (result.code === 0) {
+                    closeModal();
+                    loadAccountList(currentPage);
+                } else {
+                    showAlert('modalAlert', result.message, 'error');
+                }
+            } catch (error) {
+                showAlert('modalAlert', '操作失败: ' + error.message, 'error');
+            }
+        });
+
+        // 显示警告信息
+        function showAlert(elementId, message, type) {
+            const alert = document.getElementById(elementId);
+            alert.textContent = message;
+            alert.className = `alert alert-${type}`;
+            alert.classList.remove('hidden');
+        }
+
+        // 隐藏警告信息
+        function hideAlert(elementId) {
+            document.getElementById(elementId).classList.add('hidden');
+        }
+
+        // 点击模态框外部关闭
+        window.onclick = function (event) {
+            const modal = document.getElementById('accountModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // 标签页切换
+        function switchTab(tabName) {
+            // 隐藏所有标签页
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // 显示选中的标签页
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            event.target.classList.add('active');
+
+            // 加载对应的数据
+            if (tabName === 'accounts') {
+                loadAccountList();
+            } else if (tabName === 'users') {
+                loadUserList();
+                loadAvailableMainAccounts();
+            }
+        }
+
+        // 加载可用主账号列表
+        async function loadAvailableMainAccounts() {
+            try {
+                console.log('开始加载可用主账号列表...');
+                const response = await fetch('/admin/available-main-accounts', {
+                    headers: {
+                        'Authorization': localStorage.getItem('admin_token')
+                    }
+                });
+
+                console.log('API响应状态:', response.status);
+                const result = await response.json();
+                console.log('API响应结果:', result);
+
+                if (result.code === 0) {
+                    // 确保result.data是数组，如果为null或undefined则设为空数组
+                    availableMainAccounts = Array.isArray(result.data) ? result.data : [];
+                    console.log('可用主账号数量:', availableMainAccounts.length);
+                    updateMainAccountSelect();
+                } else {
+                    console.error('API返回错误:', result.message);
+                    availableMainAccounts = []; // 出错时设为空数组
+                    updateMainAccountSelect();
+                    alert('加载可用主账号失败: ' + result.message);
+                }
+            } catch (error) {
+                console.error('加载可用主账号失败:', error);
+                availableMainAccounts = []; // 异常时设为空数组
+                updateMainAccountSelect();
+                alert('加载可用主账号失败: ' + error.message);
+            }
+        }
+
+        // 更新主账号选择框
+        function updateMainAccountSelect() {
+            const select = document.getElementById('userMainAccountId');
+            if (!select) {
+                console.error('找不到主账号选择框元素');
+                return;
+            }
+
+            console.log('更新主账号选择框，可用账号:', availableMainAccounts);
+            select.innerHTML = '<option value="0">无关联</option>';
+
+            // 检查availableMainAccounts是否存在且为数组
+            if (availableMainAccounts && Array.isArray(availableMainAccounts) && availableMainAccounts.length > 0) {
+                availableMainAccounts.forEach(account => {
+                    const option = document.createElement('option');
+                    option.value = account.id;
+                    option.textContent = `${account.id} - ${account.token} (${account.status_text})`;
+                    select.appendChild(option);
+                    console.log('添加选项:', option.textContent);
+                });
+            } else {
+                console.log('没有可用的主账号数据');
+            }
+
+            console.log('主账号选择框更新完成，总选项数:', select.options.length);
+        }
+
+        // 加载用户列表
+        async function loadUserList(page = 1) {
+            currentUserPage = page;
+            const name = document.getElementById('userNameFilter').value;
+            const comboId = document.getElementById('comboIdFilter').value;
+            const params = new URLSearchParams({
+                page: page,
+                page_size: pageSize
+            });
+            if (name) {
+                params.append('name', name);
+            }
+            if (comboId) {
+                params.append('combo_id', comboId);
+            }
+
+            try {
+                const response = await fetch(`/admin/users?${params}`, {
+                    headers: {
+                        'Authorization': localStorage.getItem('admin_token')
+                    }
+                });
+
+                const result = await response.json();
+                if (result.code === 0) {
+                    renderUserTable(result.data.list);
+                    renderUserPagination(result.data.total, result.data.page, result.data.size);
+                } else {
+                    alert('加载失败: ' + result.message);
+                }
+            } catch (error) {
+                alert('加载失败: ' + error.message);
+            }
+        }
+
+        // 渲染用户表格
+        function renderUserTable(users) {
+            const tbody = document.getElementById('userTableBody');
+            tbody.innerHTML = '';
+
+            // 检查users是否存在且为数组
+            if (users && Array.isArray(users) && users.length > 0) {
+                users.forEach(user => {
+                    const row = `
+                        <tr>
+                            <td>${user.id}</td>
+                            <td>${user.name}</td>
+                            <td>${user.combo_id}</td>
+                            <td>${user.main_account_token || '未关联'}</td>
+                            <td>${formatDateTime(user.created_time)}</td>
+                            <td>${formatDateTime(user.updated_time)}</td>
+                            <td>
+                                <button class="btn btn-warning" onclick="editUser(${user.id})">编辑</button>
+                                <button class="btn btn-danger" onclick="deleteUser(${user.id})">删除</button>
+                            </td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
+            } else {
+                // 没有数据时显示提示
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #666;">暂无用户数据</td></tr>';
+            }
+        }
+
+        // 渲染用户分页
+        function renderUserPagination(total, page, size) {
+            const totalPages = Math.ceil(total / size);
+            const pagination = document.getElementById('userPagination');
+            pagination.innerHTML = '';
+
+            // 上一页
+            if (page > 1) {
+                pagination.innerHTML += `<button onclick="loadUserList(${page - 1})">上一页</button>`;
+            }
+
+            // 页码
+            for (let i = Math.max(1, page - 2); i <= Math.min(totalPages, page + 2); i++) {
+                const activeClass = i === page ? 'active' : '';
+                pagination.innerHTML += `<button class="${activeClass}" onclick="loadUserList(${i})">${i}</button>`;
+            }
+
+            // 下一页
+            if (page < totalPages) {
+                pagination.innerHTML += `<button onclick="loadUserList(${page + 1})">下一页</button>`;
+            }
+        }
+
+        // 打开创建用户模态框
+        function openCreateUserModal() {
+            isUserEditMode = false;
+            document.getElementById('userModalTitle').textContent = '新增用户';
+            document.getElementById('userForm').reset();
+            document.getElementById('userId').value = '';
+            document.getElementById('userModal').style.display = 'block';
+            loadAvailableMainAccounts();
+        }
+
+        // 编辑用户
+        async function editUser(id) {
+            isUserEditMode = true;
+            document.getElementById('userModalTitle').textContent = '编辑用户';
+
+            try {
+                const response = await fetch(`/admin/users/${id}`, {
+                    headers: {
+                        'Authorization': localStorage.getItem('admin_token')
+                    }
+                });
+
+                const result = await response.json();
+                if (result.code === 0) {
+                    const user = result.data;
+                    document.getElementById('userId').value = user.id;
+                    document.getElementById('userName').value = user.name;
+                    document.getElementById('userPassword').value = ''; // 编辑时不显示密码
+                    document.getElementById('userComboId').value = user.combo_id;
+                    document.getElementById('userMainAccountId').value = user.main_account_id || 0;
+                    document.getElementById('userModal').style.display = 'block';
+                    await loadAvailableMainAccounts();
+                } else {
+                    alert('加载用户信息失败: ' + result.message);
+                }
+            } catch (error) {
+                alert('加载用户信息失败: ' + error.message);
+            }
+        }
+
+        // 删除用户
+        async function deleteUser(id) {
+            if (!confirm('确定要删除这个用户吗？')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/admin/users/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': localStorage.getItem('admin_token')
+                    }
+                });
+
+                const result = await response.json();
+                if (result.code === 0) {
+                    alert('删除成功');
+                    loadUserList(currentUserPage);
+                } else {
+                    alert('删除失败: ' + result.message);
+                }
+            } catch (error) {
+                alert('删除失败: ' + error.message);
+            }
+        }
+
+        // 关闭用户模态框
+        function closeUserModal() {
+            document.getElementById('userModal').style.display = 'none';
+            hideAlert('userModalAlert');
+        }
+
+        // 用户表单提交
+        document.getElementById('userForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            // 转换数据类型
+            data.combo_id = parseInt(data.combo_id);
+            data.main_account_id = parseInt(data.main_account_id);
+            if (data.id) {
+                data.id = parseInt(data.id);
+            }
+
+            const url = '/admin/users';
+            const method = isUserEditMode ? 'PUT' : 'POST';
+
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': localStorage.getItem('admin_token')
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                if (result.code === 0) {
+                    closeUserModal();
+                    loadUserList(currentUserPage);
+                } else {
+                    showAlert('userModalAlert', result.message, 'error');
+                }
+            } catch (error) {
+                showAlert('userModalAlert', '操作失败: ' + error.message, 'error');
+            }
+        });
+
+        // 点击用户模态框外部关闭
+        window.onclick = function (event) {
+            const accountModal = document.getElementById('accountModal');
+            const userModal = document.getElementById('userModal');
+            if (event.target === accountModal) {
+                closeModal();
+            }
+            if (event.target === userModal) {
+                closeUserModal();
+            }
+        }
+
+        // 退出登录
+        function logout() {
+            if (confirm('确定要退出登录吗？')) {
+                // 清除本地存储的token
+                localStorage.removeItem('admin_token');
+
+                // 显示登录界面，隐藏主界面
+                document.getElementById('loginContainer').classList.remove('hidden');
+                document.getElementById('mainContainer').classList.add('hidden');
+
+                // 清空登录表单
+                document.getElementById('loginForm').reset();
+
+                // 重置标签页到默认状态
+                document.querySelectorAll('.nav-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                document.querySelector('.nav-tab').classList.add('active');
+                document.getElementById('accountsTab').classList.add('active');
+
+                // 清空表格数据
+                document.getElementById('accountTableBody').innerHTML = '';
+                document.getElementById('userTableBody').innerHTML = '';
+                document.getElementById('pagination').innerHTML = '';
+                document.getElementById('userPagination').innerHTML = '';
+
+                // 清空全局变量
+                availableMainAccounts = [];
+                currentPage = 1;
+                currentUserPage = 1;
+
+                // 关闭所有模态框
+                document.getElementById('accountModal').style.display = 'none';
+                document.getElementById('userModal').style.display = 'none';
+
+                // 隐藏所有警告信息
+                hideAlert('loginAlert');
+                hideAlert('modalAlert');
+                hideAlert('userModalAlert');
+
+                console.log('用户已退出登录');
+                alert('已成功退出登录');
+            }
+        }
+
+        // 页面加载时检查登录状态
+        document.addEventListener('DOMContentLoaded', function () {
+            checkLogin();
+        });
+    </script>
+</body>
+
+</html>

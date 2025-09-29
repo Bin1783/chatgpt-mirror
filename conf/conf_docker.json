@@ -1,0 +1,70 @@
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": "8082",
+    "mode": "release",
+    "read_timeout": 60,
+    "write_timeout": 60
+  },
+  "mysql": {
+    "host": "mysql",
+    "port": 3306,
+    "user": "root",
+    "password": "chatgpt_mirror_2024",
+    "database": "gpt_mirror",
+    "charset": "utf8mb4",
+    "parse_time": true,
+    "loc": "Local",
+    "max_idle_conns": 10,
+    "max_open_conns": 100,
+    "conn_max_lifetime": 3600
+  },
+  "redis": {
+    "host": "redis",
+    "port": 6379,
+    "password": "chatgpt_redis_2024",
+    "db": 0,
+    "pool_size": 10,
+    "min_idle_conns": 5,
+    "dial_timeout": 5,
+    "read_timeout": 3,
+    "write_timeout": 3,
+    "pool_timeout": 4
+  },
+  "log": {
+    "level": "info",
+    "filename": "./logs/app.log",
+    "max_size": 100,
+    "max_age": 30,
+    "max_backups": 5,
+    "compress": true
+  },
+  "logs_path": "./logs",
+  "template_path": "./view/templates",
+  "redirect": {
+    "dev": "http://localhost:8082/admin/"
+  },
+  "timer_cron": {
+    "update_plan_type": "@every 1h",
+    "refresh_token": "@every 30m"
+  },
+  "domain": {
+    "dev": "localhost:8082"
+  },
+  "expire": {
+    "user_bind_accessToken": 86400,
+    "share_token": 86400
+  },
+  "gateway": {
+    "proxy_url":"",
+    "sentinel_proxy_url":"",
+    "user_agents_list": [],
+    "device_tuple": [],
+    "browser_tuple": [],
+    "platform_tuple": [],
+    "file_host": "",
+    "voice_host": "",
+    "force_no_history": false
+  },
+  "env":"dev"
+}
