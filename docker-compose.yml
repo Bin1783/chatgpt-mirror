@@ -1,0 +1,84 @@
+services:
+  # ChatGPT Mirror 应用服务
+  chatgpt-mirror:
+    image: bink1783/chatgpt-mirror-go:latest  # 指定镜像名和标签  
+    container_name: chatgpt-mirror-app
+    restart: unless-stopped
+    ports:
+      - "8082:8082"  # 只有应用服务需要对外暴露
+    environment:
+      - ENV=docker
+    volumes:
+      - ./logs:/app/logs
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - chatgpt-network
+
+  # MySQL 数据库服务
+  mysql:
+    image: mysql:8.0
+    container_name: chatgpt-mirror-mysql
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=chatgpt_mirror_2024
+      - MYSQL_DATABASE=gpt_mirror
+      - TZ=Asia/Shanghai
+    # 删除 ports 部分 - 不需要对外暴露
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: >
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --innodb-buffer-pool-size=256M
+      --max-connections=200
+    networks:
+      - chatgpt-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pchatgpt_mirror_2024"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Redis 缓存服务
+  redis:
+    image: redis:7-alpine
+    container_name: chatgpt-mirror-redis
+    restart: unless-stopped
+    command: >
+      redis-server
+      --requirepass chatgpt_redis_2024
+      --appendonly yes
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+    # 删除 ports 部分 - 不需要对外暴露
+    volumes:
+      - redis_data:/data
+    networks:
+      - chatgpt-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "chatgpt_redis_2024", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+# 自定义网络
+networks:
+  chatgpt-network:
+    name: chatgpt-mirror-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          gateway: 172.20.0.1
+
+# 数据卷
+volumes:
+  mysql_data:
+    name: chatgpt-mirror-mysql-data
+  redis_data:
+    name: chatgpt-mirror-redis-data

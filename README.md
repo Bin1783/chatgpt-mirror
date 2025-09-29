@@ -66,18 +66,18 @@
 
 ### 安装部署
 
-> ⚠️ **重要提示**：由于特殊原因，暂不支持本地源码部署。如有部署需要，请在 [Issues](https://github.com/your-username/chatgpt-mirror/issues) 中留言联系。
+> ⚠️ **重要提示**：由于特殊原因，暂不支持本地源码部署。如有部署需要，请在 [Issues](https://github.com/Bin1783/chatgpt-mirror/issues) 中留言联系。
 
 1. **克隆项目**
 ```bash
 # 注意：仅用于查看源码结构和学习
-git clone https://github.com/your-username/chatgpt-mirror.git
+git clone https://github.com/Bin1783/chatgpt-mirror.git
 cd chatgpt-mirror
 ```
 
 **如需部署服务，请通过以下方式联系：**
-- 📧 在 [Issues](https://github.com/your-username/chatgpt-mirror/issues) 中创建部署需求
-- 💬 在 [Discussions](https://github.com/your-username/chatgpt-mirror/discussions) 中讨论
+- 📧 在 [Issues](https://github.com/Bin1783/chatgpt-mirror/issues) 中创建部署需求
+- 💬 在 [Discussions](https://github.com/Bin1783/chatgpt-mirror/discussions) 中讨论
 - 📱 Telegram 联系：[@ChatGPTMirror](https://t.me/Bink1783)
 **演示服务访问：**
 - 用户界面：http://localhost:8082
@@ -88,7 +88,7 @@ cd chatgpt-mirror
 
 ```bash
 # 示例命令（需要完整配置）
-docker build -t chatgpt-mirror .
+cd chatgpt-mirror
 docker-compose up -d
 ```
 
@@ -205,8 +205,8 @@ docker-compose up -d
 
 ## 🆘 支持与反馈
 
-- 🐛 [提交 Bug](https://github.com/your-username/chatgpt-mirror/issues)
-- 💡 [功能建议](https://github.com/your-username/chatgpt-mirror/discussions)
+- 🐛 [提交 Bug](https://github.com/Bin1783/chatgpt-mirror/issues)
+- 💡 [功能建议](https://github.com/Bin1783/chatgpt-mirror/discussions)
 - 📱 Telegram：[@ChatGPTMirror](https://t.me/Bink1783)
 
 ## 🙏 致谢
